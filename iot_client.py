@@ -44,7 +44,7 @@ class IoTThing(AWSIoTMQTTClient):
             os.environ.get("IOT_REGION")
         )
         print("Using endpoint: {0}".format(self.iot_endpoint))
-        super().__init__("dispencer_"+ self.serial_number)
+        super().__init__("dispenser_"+ self.serial_number)
         self.private_key, self.private_key_pem = self.generate_private_key()
         self.certificate_pem = None
         self.csr = self.gen_csr(self.private_key)
