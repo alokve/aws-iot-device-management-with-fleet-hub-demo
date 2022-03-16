@@ -41,7 +41,8 @@
         },
         "ProjectSource": {
             "Default": "https://github.com/aws-samples/aws-iot-device-management-with-fleet-hub-demo",
-            "Description": "Demo Project Source. Don't change unless you're using a clone/fork of the original project repo",
+            "Description": "
+            Project Source. Don't change unless you're using a clone/fork of the original project repo",
             "Type": "String"
         },
         "VPCCIDRPrefix": {
@@ -66,7 +67,7 @@
                     "EnvironmentVariables": [
                         {
                             "Name": "APP_NAME",
-                            "Value": "awsiotdmdemo"
+                            "Value": "awsiotdmdemo2"
                         },
                         {
                             "Name": "IMAGE_REPO",
@@ -95,7 +96,7 @@
                     "PrivilegedMode": "true",
                     "Type": "LINUX_CONTAINER"
                 },
-                "Name": "AWS-IoT-DM-Demo",
+                "Name": "AWS-IoT-DM-Demo2",
                 "ServiceRole": {
                     "Fn::GetAtt": [
                         "CodebuildServiceRole",
@@ -186,7 +187,7 @@
                                     ],
                                     "Effect": "Allow",
                                     "Resource": {
-                                        "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/AWS-IoT-DM-Demo*"
+                                        "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/AWS-IoT-DM-Demo2*"
                                     }
                                 }
                             ],
