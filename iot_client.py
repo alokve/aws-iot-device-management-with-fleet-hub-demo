@@ -76,6 +76,11 @@ class IoTThing(AWSIoTMQTTClient):
         self.boto_session = None
         self.send_heartbeats = True
         self.wan_connection = 1
+        if self.shadow['firmware_version'] == "2.0":
+            self.heatbeatdelay = 3
+        else:
+            self.heatbeatdelay = 1
+        
 
     def init_thing_in_iot(self):
         sts = boto3.client('sts')
@@ -381,6 +386,10 @@ class IoTThing(AWSIoTMQTTClient):
     def firmware_upgrade(self, job_document):
         self.shadow['firmware_version'] = job_document['firmware_version']
         self.report_shadow({"firmware_version": job_document['firmware_version']})
+        if job_document['firmware_version'] == "2.0":
+            self.heatbeatdelay = 3
+        else:
+            self.heatbeatdelay = 1
 
     def heartbeater(self):
         while True:
@@ -391,7 +400,7 @@ class IoTThing(AWSIoTMQTTClient):
                     new_shadow = {"desired": {"temperature": random.choice([10, 11, 12, 13, 14, 15, 16])}}
                     self.update_device_configuration_from_shadow_update(new_shadow)
                     print("Updated shadow with new temperature: {0}".format(new_shadow['desired']['temperature']))
-            time.sleep(3)
+            time.sleep(self.heatbeatdelay)
 
     def demo_connectivity_issues(self):
         if self.shadow['battery_state_of_charge'] < 3:
